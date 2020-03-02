@@ -1,4 +1,4 @@
-@extends('layout/nav')
+@extends('layouts/nav')
 
 @section('content')
 
