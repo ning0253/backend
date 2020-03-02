@@ -36,6 +36,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/home/news">News</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home/product">Product</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

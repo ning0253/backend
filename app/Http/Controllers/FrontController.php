@@ -16,4 +16,9 @@ class FrontController extends Controller
         $news_data = DB::table('news')->get();
         return view('front/news', compact('news_data'));
     }
+    public function product()
+    {
+        $products_data = DB::table('products')->get();
+        return view('front/product', compact('products_data'));
+    }
 }

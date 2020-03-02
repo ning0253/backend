@@ -12,8 +12,8 @@
 */
 
 Route::get('/', 'FrontController@index');
-
 Route::get('/news', 'FrontController@news');
+Route::get('/product', 'FrontController@product');
 
 
 Auth::routes();
@@ -23,6 +23,9 @@ Route::group(['middleware' => ['auth'], 'prefix'=>'/home'], function () {
 
     Route::get('/news', 'NewsController@index');
     Route::post('/news/store', 'NewsController@store');
+
+    Route::get('/product', 'ProductController@index');
+    Route::post('/product/store', 'ProductController@store');
 });
 
 
