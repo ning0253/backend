@@ -20,11 +20,11 @@
                             <div>
 
                                 @foreach ($products_data as $item)
-                                <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false"
-                                data-tags="{{$item->tag}}">
-                                <div href="#lb-gallery2-3" data-slide-to="{{$item->id - 1}}" data-toggle="modal"><img
-                                        src="{{$item->img}}" alt="" title=""><span
-                                        class="icon-focus"></span></div>
+                                <div class="mbr-gallery-item mbr-gallery-item--p2" data-video-url="false" data-tags="{{$item->tag}}">
+                                    <div href="#lb-gallery2-3" data-slide-to="{{($item->id) - 1}}" data-toggle="modal">
+                                        <img src="{{$item->img}}" alt="" title="">
+                                        <span class="icon-focus"></span>
+                                    </div>
                                 </div>
                                 @endforeach
 
@@ -48,9 +48,7 @@
                                         @endif
                                         <img src="{{$item->img}}" alt=""
                                             title=""></div>
-
                                     @endforeach
-
 
                                 </div><a class="carousel-control carousel-control-prev" role="button" data-slide="prev"
                                     href="#lb-gallery2-3"><span class="mbri-left mbr-iconfont"

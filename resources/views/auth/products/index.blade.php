@@ -1,20 +1,47 @@
 @extends('layouts/app')
 
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+@endsection
+
 @section('content')
 <div class="container">
-    <form method="POST" action="/home/product/store">
-        @csrf
-        <div class="form-group">
-          <label for="img">Img</label>
-          <input type="text" class="form-control" id="img" placeholder="Enter img" name="img">
-        </div>
-        <div class="form-group">
-        <label for="tag">Tag</label>
-          <input type="text" class="form-control" id="tag" placeholder="Enter tag" name="tag">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+
+    <a href="/home/product/create" class="btn btn-success">新增</a>
+    <hr>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th width="10">ID</th>
+                <th width="200">Img</th>
+                <th>Tag</th>
+                <th width="80"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($products_data as $item)
+                <tr>
+                    <td>{{$item->id}}</td>
+                    <td><img width="200" src="{{$item->img}}" alt=""></td>
+                    <td>{{$item->tag}}</td>
+                    <td>
+                        <a href="/home/product/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
+                        <a href="" class="btn btn-danger btn-sm">刪除</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection
 
+@section('js')
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+@endsection
 
