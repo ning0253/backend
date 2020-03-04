@@ -24,5 +24,25 @@ class ProductController extends Controller
 
         return redirect('/home/product');
     }
+
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('auth/products/edit', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        Product::find($id)->update($request->all());
+
+        return redirect('/home/product');
+    }
+
+    public function delete(Request $request, $id)
+    {
+        Product::find($id)->delete();
+
+        return redirect('/home/product');
+    }
 }
 

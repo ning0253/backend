@@ -102,21 +102,28 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="carousel-inner">
-                                <div class="carousel-item active"><img src="{{asset('assets/images/background1.jpg')}}" alt=""
-                                        title=""></div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background2.jpg')}}" alt="" title="">
+                                <div class="carousel-item active"><img src="{{asset('assets/images/background1.jpg')}}"
+                                        alt="" title=""></div>
+                                <div class="carousel-item"><img src="{{asset('assets/images/background2.jpg')}}" alt=""
+                                        title="">
                                 </div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background3.jpg')}}" alt="" title="">
+                                <div class="carousel-item"><img src="{{asset('assets/images/background3.jpg')}}" alt=""
+                                        title="">
                                 </div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background4.jpg')}}" alt="" title="">
+                                <div class="carousel-item"><img src="{{asset('assets/images/background4.jpg')}}" alt=""
+                                        title="">
                                 </div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background5.jpg')}}" alt="" title="">
+                                <div class="carousel-item"><img src="{{asset('assets/images/background5.jpg')}}" alt=""
+                                        title="">
                                 </div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background6.jpg')}}" alt="" title="">
+                                <div class="carousel-item"><img src="{{asset('assets/images/background6.jpg')}}" alt=""
+                                        title="">
                                 </div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background7.jpg')}}" alt="" title="">
+                                <div class="carousel-item"><img src="{{asset('assets/images/background7.jpg')}}" alt=""
+                                        title="">
                                 </div>
-                                <div class="carousel-item"><img src="{{asset('assets/images/background8.jpg')}}" alt="" title="">
+                                <div class="carousel-item"><img src="{{asset('assets/images/background8.jpg')}}" alt=""
+                                        title="">
                                 </div>
                             </div><a class="carousel-control carousel-control-prev" role="button" data-slide="prev"
                                 href="#lb-gallery1-3"><span class="mbri-left mbr-iconfont"

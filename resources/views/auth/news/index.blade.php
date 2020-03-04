@@ -16,29 +16,31 @@
                 <th width="200">Img</th>
                 <th>Title</th>
                 <th>Content</th>
+                <th width="10">Sort</th>
                 <th width="80"></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($news_data as $item)
-                <tr>
-                    <td>{{$item->id}}</td>
-                    <td><img width="200" src="{{$item->img}}" alt=""></td>
-                    <td>{{$item->title}}</td>
-                    <td>{{$item->content}}</td>
-                    <td>
-                        <a href="/home/news/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
-                        <a class="btn btn-danger btn-sm" href=""
-                                       onclick="event.preventDefault();
+            <tr>
+                <td>{{$item->id}}</td>
+                <td><img width="200" src="{{asset('/storage/'.$item->img)}}" alt=""></td>
+                <td>{{$item->title}}</td>
+                <td>{{$item->content}}</td>
+                <td>{{$item->sort}}</td>
+                <td>
+                    <a href="/home/news/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
+                    <a class="btn btn-danger btn-sm" href="" onclick="event.preventDefault();
                                                      show_confirm({{$item->id}});">
-                                        {{ __('刪除') }}
-                                    </a>
+                        {{ __('刪除') }}
+                    </a>
 
-                        <form id="delete-form" action="/home/news/delete/{{$item->id}}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </td>
-                </tr>
+                    <form id="delete-form-{{$item->id}}" action="/home/news/delete/{{$item->id}}" method="POST"
+                        style="display: none;">
+                        @csrf
+                    </form>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
@@ -50,14 +52,15 @@
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(document).ready(function() {
-    $('#example').DataTable();
-} );
-function show_confirm(id){
-    let r=confirm("確定刪除？");
-    if(r){
-        document.getElementById('delete-form').submit();
+        $('#example').DataTable({
+            "order": [[ 4, 'desc' ]]
+        });
+    });
+    function show_confirm(id) {
+        let r=confirm("確定刪除？");
+        if(r){
+            document.getElementById('delete-form-'+id).submit();
+        }
     }
-}
 </script>
 @endsection
-

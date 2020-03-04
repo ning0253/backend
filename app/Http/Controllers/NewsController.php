@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\News;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
@@ -18,8 +18,13 @@ class NewsController extends Controller
         return view('auth/news/create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $news_data = $request->all();
+        //上傳檔案
+        $file_name = $request->file('img')->store('', 'public');
+        $news_data['img'] = $file_name;
+
         News::create($news_data)->save();
 
         return redirect('/home/news');
