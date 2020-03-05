@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use App\News;
+use App\NewsImg;
+use App\Product;
+
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -13,12 +16,17 @@ class FrontController extends Controller
     }
     public function news()
     {
-        $news_data = DB::table('news')->orderBy('sort', 'desc')->get();
+        $news_data = News::orderBy('sort', 'desc')->get();
         return view('front/news', compact('news_data'));
+    }
+    public function news_content($id)
+    {
+        $news_data = News::with('news_imgs')->find($id);
+        return view('front/news_content', compact('news_data'));
     }
     public function product()
     {
-        $products_data = DB::table('products')->orderBy('sort', 'desc')->get();
+        $products_data = Product::orderBy('sort', 'desc')->get();
         return view('front/product', compact('products_data'));
     }
 }

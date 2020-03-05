@@ -25,7 +25,12 @@ class NewsController extends Controller
         $file_name = $request->file('img')->store('', 'public');
         $news_data['img'] = $file_name;
 
-        News::create($news_data)->save();
+        $this_news = News::create($news_data);
+        foreach ($request->file('news_imgs') as $item) {
+            $img_name = $item->store('', 'public');
+
+            
+        }
 
         return redirect('/home/news');
     }
