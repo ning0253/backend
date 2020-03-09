@@ -22,8 +22,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => '/home'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
 //summernote
-    Route::post('/ajax_upload_img', 'AdminController@ajax_upload_img');
-    Route::post('/ajax_delete_img', 'AdminController@ajax_delete_img');
+    Route::post('/ajax_upload_summernote_img', 'AdminController@ajax_upload_summernote_img');
+    Route::post('/ajax_delete_summernote_img', 'AdminController@ajax_delete_summernote_img');
 
 //News
     Route::get('/news', 'NewsController@index');
