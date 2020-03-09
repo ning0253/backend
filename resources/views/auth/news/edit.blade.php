@@ -24,14 +24,15 @@
         </div>
         <div class="form-group">
             <label>Other Imgs</label>
-            <div class="row">
+            <div class="row" id="img_group">
                 @foreach ($news->news_imgs as $item)
                 <div class="col-2">
                     <div class="other_img">
-                        <button type="button" class="btn btn-danger">x</button>
+                        <button type="button" class="btn btn-danger"
+                            onclick="ajax_delete_img(this.parentElement, {{$item->id}})">x</button>
                         <img class="img-fluid" src="{{asset('/storage/'.$item->img)}}" alt="">
                         <input type="number" class="form-control" placeholder="Enter sort" name="sort"
-                            value="{{$item->sort}}" required>
+                            value="{{$item->sort}}" required onchange="ajax_edit_sort(this, {{$item->id}})">
                     </div>
                 </div>
                 @endforeach
@@ -39,7 +40,7 @@
         </div>
         <div class="form-group">
             <label for="news_imgs">Add Other Imgs</label>
-            <input type="file" class="form-control" id="news_imgs" name="news_imgs[]" required multiple>
+            <input type="file" class="form-control" id="news_imgs" name="news_imgs[]" multiple>
         </div>
         <div class="form-group">
             <label for="title">Title</label>
@@ -59,4 +60,49 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+@endsection
+
+@section('js')
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    function ajax_delete_img(element, id){
+                console.log(id);
+        $.ajax({
+            method: 'POST',
+            url: '/home/ajax_delete_img',
+            data: {
+                img_id: id
+            },
+            success: function (res) {
+                element.remove();
+                $("#img_group").load(location.href+" #img_group>*","");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error(textStatus + " " + errorThrown);
+            }
+        });
+    }
+    function ajax_edit_sort(element, id){
+        $.ajax({
+            method: 'POST',
+            url: '/home/ajax_edit_sort',
+            data: {
+                img_id: id,
+                img_sort: element.value
+            },
+            success: function (res) {
+                $("#img_group").load(location.href+" #img_group>*","");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error(textStatus + " " + errorThrown);
+            }
+        });
+    }
+</script>
+
 @endsection

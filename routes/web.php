@@ -35,6 +35,9 @@ Route::group(['middleware' => ['auth'], 'prefix'=>'/home'], function () {
 
     Route::post('/news/delete/{id}', 'NewsController@delete');
 
+    Route::post('/ajax_delete_img','NewsController@ajax_delete_img');
+    Route::post('/ajax_edit_sort','NewsController@ajax_edit_sort');
+
 //Product
     Route::get('/product', 'ProductController@index');
 
