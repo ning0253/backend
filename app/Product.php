@@ -8,6 +8,11 @@ class Product extends Model
 {
     protected $table = 'products';
     protected $fillable = [
-        'img', 'tag', 'sort'
+        'product_type_id', 'img', 'name', 'content', 'sort',
     ];
+
+    public function product_types()
+    {
+        return $this->belongsTo('App\ProductType', 'product_type_id')->orderby('sort', 'desc');
+    }
 }

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\News;
-use App\NewsImg;
 use App\Product;
-
-use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {

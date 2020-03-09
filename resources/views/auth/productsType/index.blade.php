@@ -7,37 +7,31 @@
 @section('content')
 <div class="container">
 
-    <a href="/home/product/create" class="btn btn-success">新增</a>
+    <a href="/home/productType/create" class="btn btn-success">新增</a>
     <hr>
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th width="10">ID</th>
                 <th>Type</th>
-                <th width="200">Img</th>
-                <th>Name</th>
-                <th>Content</th>
                 <th width="10">Sort</th>
                 <th width="80"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($product_data as $item)
+            @foreach ($product_type_data as $item)
             <tr>
                 <td>{{$item->id}}</td>
-                <td>{{$item->product_types->type}}</td>
-                <td><img width="200" src="{{asset('/storage/'.$item->img)}}" alt=""></td>
-                <td>{{$item->name}}</td>
-                <td>{!!$item->content!!}</td>
+                <td>{{$item->type}}</td>
                 <td>{{$item->sort}}</td>
                 <td>
-                    <a href="/home/product/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
+                    <a href="/home/productType/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>
                     <a class="btn btn-danger btn-sm" href="" onclick="event.preventDefault();
                                                      show_confirm({{$item->id}});">
                         {{ __('刪除') }}
                     </a>
 
-                    <form id="delete-form-{{$item->id}}" action="/home/product/delete/{{$item->id}}" method="POST"
+                    <form id="delete-form-{{$item->id}}" action="/home/productType/delete/{{$item->id}}" method="POST"
                         style="display: none;">
                         @csrf
                     </form>
@@ -55,7 +49,7 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            "order": [[ 5, 'desc' ]]
+            "order": [[ 2, 'desc' ]]
         });
     });
     function show_confirm(id) {

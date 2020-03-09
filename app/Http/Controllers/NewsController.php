@@ -24,12 +24,12 @@ class NewsController extends Controller
     {
         $requestData = $request->all();
         //上傳檔案
-        $file_name = $request->file('img')->store('', 'public');
+        $file_name = $request->file('img')->store('news', 'public');
         $requestData['img'] = $file_name;
         $thisNewsData = News::create($requestData);
 
         foreach ($request->file('news_imgs') as $item) {
-            $img_name = $item->store('', 'public');
+            $img_name = $item->store('news', 'public');
 
             $newsImgData = new NewsImg();
             $newsImgData->news_id = $thisNewsData->id;
@@ -57,7 +57,7 @@ class NewsController extends Controller
             }
 
             //上傳圖片
-            $file_name = $request->file('img')->store('', 'public');
+            $file_name = $request->file('img')->store('news', 'public');
             $requsetData['img'] = $file_name;
         }
         $thisNewsData->update($requsetData);
@@ -66,7 +66,7 @@ class NewsController extends Controller
         if ($request->hasFile('news_imgs')) {
             foreach ($request->file('news_imgs') as $item) {
                 //上傳圖片
-                $img_name = $item->store('', 'public');
+                $img_name = $item->store('news', 'public');
 
                 $newsImgData = new NewsImg();
                 $newsImgData->news_id = $thisNewsData->id;

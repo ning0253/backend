@@ -9,20 +9,21 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-
-use App\Product;
+ */
 
 Route::get('/', 'FrontController@index');
 Route::get('/news', 'FrontController@news');
 Route::get('/news/{id}', 'FrontController@news_content');
 Route::get('/product', 'FrontController@product');
 
-
 Auth::routes();
 
-Route::group(['middleware' => ['auth'], 'prefix'=>'/home'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => '/home'], function () {
     Route::get('/', 'HomeController@index')->name('home');
+
+//summernote
+    Route::post('/ajax_upload_img', 'AdminController@ajax_upload_img');
+    Route::post('/ajax_delete_img', 'AdminController@ajax_delete_img');
 
 //News
     Route::get('/news', 'NewsController@index');
@@ -35,8 +36,19 @@ Route::group(['middleware' => ['auth'], 'prefix'=>'/home'], function () {
 
     Route::post('/news/delete/{id}', 'NewsController@delete');
 
-    Route::post('/ajax_delete_img','NewsController@ajax_delete_img');
-    Route::post('/ajax_edit_sort','NewsController@ajax_edit_sort');
+    Route::post('/ajax_delete_img', 'NewsController@ajax_delete_img');
+    Route::post('/ajax_edit_sort', 'NewsController@ajax_edit_sort');
+
+//ProductType
+    Route::get('/productType', 'ProductTypeController@index');
+
+    Route::get('/productType/create', 'ProductTypeController@create');
+    Route::post('/productType/store', 'ProductTypeController@store');
+
+    Route::get('/productType/edit/{id}', 'ProductTypeController@edit');
+    Route::post('/productType/update/{id}', 'ProductTypeController@update');
+
+    Route::post('/productType/delete/{id}', 'ProductTypeController@delete');
 
 //Product
     Route::get('/product', 'ProductController@index');
@@ -49,5 +61,3 @@ Route::group(['middleware' => ['auth'], 'prefix'=>'/home'], function () {
 
     Route::post('/product/delete/{id}', 'ProductController@delete');
 });
-
-

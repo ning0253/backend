@@ -1,6 +1,7 @@
 @extends('layouts/app')
 
 @section('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
 <style>
     .other_img button {
         position: absolute;
@@ -50,7 +51,7 @@
         <div class="form-group">
             <label for="content">Content</label>
             <textarea class="form-control" name="content" id="content" cols="30" rows="10"
-                required>{{$news->content}}</textarea>
+                required>{!!$news->content!!}</textarea>
         </div>
         <div class="form-group">
             <label for="sort">Sort</label>
@@ -63,15 +64,23 @@
 @endsection
 
 @section('js')
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#content').summernote(
+            {
+                minHeight:200
+            }
+        );
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
     function ajax_delete_img(element, id){
-                console.log(id);
         $.ajax({
             method: 'POST',
             url: '/home/ajax_delete_img',
@@ -87,6 +96,7 @@
             }
         });
     }
+
     function ajax_edit_sort(element, id){
         $.ajax({
             method: 'POST',

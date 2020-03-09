@@ -26,7 +26,7 @@
                 <td>{{$item->id}}</td>
                 <td><img width="200" src="{{asset('/storage/'.$item->img)}}" alt=""></td>
                 <td>{{$item->title}}</td>
-                <td>{{$item->content}}</td>
+                <td>{!!$item->content!!}</td>
                 <td>{{$item->sort}}</td>
                 <td>
                     <a href="/home/news/edit/{{$item->id}}" class="btn btn-success btn-sm">修改</a>

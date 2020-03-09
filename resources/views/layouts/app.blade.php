@@ -35,8 +35,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/home/news">News</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/home/product">Product</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                產品管理
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/home/productType">產品類型
+                                </a>
+                                <a class="dropdown-item" href="/home/product">產品
+                                </a>
+                            </div>
                         </li>
                     </ul>
 
