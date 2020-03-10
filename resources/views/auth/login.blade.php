@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+{!! ReCaptcha::htmlScriptTagJsApi() !!}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -48,6 +52,12 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                {!! htmlFormSnippet() !!}
                             </div>
                         </div>
 
