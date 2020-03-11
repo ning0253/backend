@@ -26,4 +26,8 @@ class FrontController extends Controller
         $products_data = Product::orderBy('sort', 'desc')->get();
         return view('front/product', compact('products_data'));
     }
+    public function contact_us()
+    {
+        return view('front/contact_us');
+    }
 }

@@ -58,6 +58,12 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 {!! htmlFormSnippet() !!}
+
+                                @error('g-recaptcha-response')
+                                    <span class="alert alert-danger">
+                                        <strong>驗證錯誤</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

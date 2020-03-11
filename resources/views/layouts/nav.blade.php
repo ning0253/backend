@@ -23,7 +23,7 @@
     <link rel="preload" as="style" href="{{asset('assets/mobirise/css/mbr-additional.css')}}">
     <link rel="stylesheet" href="{{asset('assets/mobirise/css/mbr-additional.css')}}" type="text/css">
 
-
+    @yield('css')
 
 </head>
 
@@ -66,7 +66,13 @@
                     <li class="nav-item">
                         <a class="nav-link link text-white display-4" href="/product">
                             <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                            product
+                            Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-white display-4" href="/contact_us">
+                            <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
+                            Contact Us
                         </a>
                     </li>
                 </ul>
@@ -197,7 +203,7 @@
     <script src="{{asset('assets/gallery/script.js')}}"></script>
     <script src="{{asset('assets/slidervideo/script.js')}}"></script>
 
-
+    @yield('js')
 </body>
 
 </html>
