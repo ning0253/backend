@@ -30,4 +30,21 @@ class FrontController extends Controller
     {
         return view('front/contact_us');
     }
+    public function add_cart($productId)
+    {
+        $Product = Product::find($productId); // assuming you have a Product model with id, name, description & price
+        $rowId = 456; // generate a unique() row ID
+        $userID = 1; // the user ID to bind the cart contents
+
+        // add the product to cart
+        \Cart::session($userID)->add(array(
+            'id' => $rowId,
+            'name' => $Product->name,
+            'price' => $Product->price,
+            'quantity' => 4,
+            'attributes' => array(),
+            'associatedModel' => $Product
+        ));
+        return view('front/cart_total');
+    }
 }
