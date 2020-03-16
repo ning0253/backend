@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\News;
 use App\Product;
+use App\ContactUs;
+use App\Mail\OrderShipped;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class FrontController extends Controller
 {
@@ -29,6 +33,13 @@ class FrontController extends Controller
     public function contact_us()
     {
         return view('front/contact_us');
+    }
+    public function contact_us_store(Request $request)
+    {
+        $requestData = $request->all();
+        ContactUs::create($requestData);
+        Mail::to('ning0253@gmail.com')->send(new OrderShipped($requestData));
+        return redirect('/contact_us');
     }
     public function add_cart($productId)
     {

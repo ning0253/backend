@@ -17,6 +17,7 @@ Route::get('/news', 'FrontController@news');
 Route::get('/news/{nid}', 'FrontController@news_content');
 
 Route::get('/contact_us', 'FrontController@contact_us');
+Route::post('/contact_us/store', 'FrontController@contact_us_store');
 
 Route::get('/product', 'FrontController@product');
 Route::get('/product/{pid}', 'FrontController@product_content');

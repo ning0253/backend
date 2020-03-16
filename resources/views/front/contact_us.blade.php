@@ -25,7 +25,7 @@
                 <div class="form-container">
                     <div class="media-container-column" data-form-type="formoid">
                         <!---Formbuilder Form--->
-                        <form action="https://mobirise.com/" method="POST" class="mbr-form form-with-styler"
+                        <form action="/contact_us/store" method="POST" class="mbr-form form-with-styler"
                             data-form-title="Mobirise Form"><input type="hidden" name="email" data-form-email="true"
                                 value="QC1tSQjMQsU9te4GVItZbNbllsIx03z7NDsOKE3O44JtwBLPECUfNMILYpLU2ZpLuUguLOYVSTID7HyxvX4KFmsJOzXp7FaMOlyu4rbDUO7bolJDINJQYaqSPqn1BpAN">
                             @csrf
@@ -52,7 +52,7 @@
                                     <textarea name="message" placeholder="Message" data-form-field="Message"
                                         class="form-control px-3 display-7" id="message-header15-3"></textarea>
                                 </div>
-                                <div data-for="message" class="col-md-12 form-group ">
+                                {{-- <div data-for="message" class="col-md-12 form-group ">
                                     {!! htmlFormSnippet() !!}
 
                                     @error('g-recaptcha-response')
@@ -60,7 +60,7 @@
                                         <strong>驗證錯誤</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12 input-group-btn">
                                     <button type="submit" class="btn btn-secondary btn-form display-4">SEND
                                         FORM</button>
