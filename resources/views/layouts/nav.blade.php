@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="{{asset('assets/images/logo2.png')}}" type="image/x-icon">
     <meta name="description" content="">
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Home</title>
     <link rel="stylesheet" href="{{asset('assets/web/assets/mobirise-icons/mobirise-icons.css')}}">
@@ -75,19 +78,13 @@
                             Contact Us
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link text-white display-4" href="/cart">
-                            <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                            Cart
-                        </a>
-                    </li>
                 </ul>
-                <div class="navbar-buttons mbr-section-btn">
+                {{-- <div class="navbar-buttons mbr-section-btn">
                     <a class="btn btn-sm btn-primary display-4" href="https://mobirise.com">
                         <span class="mbri-save mbr-iconfont mbr-iconfont-btn "></span>
                         Try It Now!
                     </a>
-                </div>
+                </div> --}}
             </div>
         </nav>
     </section>

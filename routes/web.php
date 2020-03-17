@@ -19,10 +19,14 @@ Route::get('/news/{nid}', 'FrontController@news_content');
 Route::get('/contact_us', 'FrontController@contact_us');
 Route::post('/contact_us/store', 'FrontController@contact_us_store');
 
-Route::get('/product', 'FrontController@product');
-Route::get('/product/{pid}', 'FrontController@product_content');
-Route::get('/add_cart/{pid}', 'FrontController@add_cart');
-Route::get('/cart_total', 'FrontController@cart_total');
+Route::get('/product', 'FrontController@product');//產品總覽
+Route::get('/product/{pid}', 'FrontController@product_content');//產品內容
+Route::get('/cart', 'FrontController@cart');//購物車
+Route::post('/add_cart/{pid}', 'FrontController@add_cart');//加入購物車
+Route::post('/update_cart/{pid}', 'FrontController@update_cart');//更新購物車產品數量
+Route::post('/delete_cart/{pid}', 'FrontController@delete_cart');//刪除購物車中一產品
+Route::get('/cart_checkout', 'FrontController@cart_checkout');//結帳
+Route::post('/cart_checkout', 'FrontController@post_cart_checkout');//結帳
 
 Auth::routes();
 

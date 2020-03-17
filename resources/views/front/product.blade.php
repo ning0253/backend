@@ -27,7 +27,7 @@
                         </p>
                         <!--Btn-->
                         <div class="mbr-section-btn align-left">
-                            <a href="https://mobirise.co" class="btn btn-warning-outline display-4">
+                        <a href="/product/{{$item->id}}" class="btn btn-warning-outline display-4">
                                 {{$item->product_types->type}}
                             </a>
                         </div>
