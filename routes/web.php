@@ -27,6 +27,14 @@ Route::post('/update_cart/{pid}', 'FrontController@update_cart');//更新購物�
 Route::post('/delete_cart/{pid}', 'FrontController@delete_cart');//刪除購物車中一產品
 Route::get('/cart_checkout', 'FrontController@cart_checkout');//結帳
 Route::post('/cart_checkout', 'FrontController@post_cart_checkout');//結帳
+Route::prefix('cart_ecpay')->group(function(){//綠界
+
+    //當消費者付款完成後，綠界會將付款結果參數以幕後(Server POST)回傳到該網址。
+    Route::post('notify', 'FrontController@notifyUrl')->name('notify');
+
+    //付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址
+    Route::post('return', 'FrontController@returnUrl')->name('return');
+});
 
 Auth::routes();
 

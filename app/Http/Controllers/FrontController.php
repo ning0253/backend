@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
-use App\Mail\OrderShipped;
 use App\News;
 use App\Order;
-use App\OrderDetail;
+use App\Contact;
 use App\Product;
+use Carbon\Carbon;
+use App\OrderDetail;
+use App\Mail\OrderShipped;
 use Illuminate\Http\Request;
+use TsaiYiHua\ECPay\Checkout;
 use Illuminate\Support\Facades\Mail;
+use TsaiYiHua\ECPay\Services\StringService;
 
 class FrontController extends Controller
 {
+    protected $checkout;
+    public function __construct(Checkout $checkout)
+    {
+        $this->checkout = $checkout;
+    }
+
     public function index()
     {
         return view('front/index');
@@ -61,7 +70,7 @@ class FrontController extends Controller
             'attributes' => array(),
             'associatedModel' => $Product,
         ));
-        return redirect('/cart');
+        return redirect('/product');
     }
     public function update_cart(Request $request, $productId)
     {
@@ -85,7 +94,7 @@ class FrontController extends Controller
     }
     public function post_cart_checkout(Request $request)
     {
-        $total_price = \Cart::getTotal();
+        $total_price = \Cart::getTotal(); //為了防止竄改 最好的方式為撈資料庫的價錢*數量
         if ($total_price > 1200) {
             $shipping_price = 0;
         } else {
@@ -93,15 +102,17 @@ class FrontController extends Controller
         }
 
         $order = new Order();
-        $order->recipient_name  = $request->recipient_name;
-        $order->recipient_phone  = $request->recipient_phone;
-        $order->recipient_address  = $request->recipient_address;
-        $order->shipping_time  = $request->shipping_time;
-        $order->total_price  = $total_price;
-        $order->shipping_price  = $shipping_price;
+        $order->recipient_name = $request->recipient_name;
+        $order->recipient_phone = $request->recipient_phone;
+        $order->recipient_address = $request->recipient_address;
+        $order->shipping_time = $request->shipping_time;
+        $order->total_price = $total_price;
+        $order->shipping_price = $shipping_price;
+        $order->save();
+        $order->order_no = 'yn'.Carbon::now()->format('Ymd').$order->id;//訂單編號
         $order->save();
 
-        $items=\Cart::getContent()->sort();
+        $items = \Cart::getContent()->sort();
         foreach ($items as $row) {
             $order_detail = new OrderDetail();
             $order_detail->order_id = $order->id;
@@ -109,6 +120,69 @@ class FrontController extends Controller
             $order_detail->quantity = $row->quantity;
             $order_detail->price = $row->price;
             $order_detail->save();
+
+            $productName=Product::find($row->id)->name;
+
+            $data[] = [
+                'name' => $productName,
+                'qty' => $row->quantity,
+                'unit' => '個',
+                'price' => $row->price,
+            ];
+        }
+
+        if($shipping_price>0){
+            $data[] = [
+                'name' => '運費',
+                'qty' => 1,
+                'unit' => '筆',
+                'price' => 120,
+            ];
+        }
+
+        $formData = [
+            'UserId' => "", // 用戶ID , Optional
+            'OrderId' => $order->order_no,
+            'ItemDescription' => '產品簡介',
+            'Items' => $data,
+            'PaymentMethod' => 'ALL', // ALL, Credit, ATM, WebATM
+        ];
+
+        \Cart::clear();
+
+        return $this->checkout->setNotifyUrl(route('notify'))->setReturnUrl(route('return'))->setPostData($formData)->send();
+    }
+    public function notifyUrl(Request $request){
+        $serverPost = $request->post();
+        $checkMacValue = $request->post('CheckMacValue');
+        unset($serverPost['CheckMacValue']);
+        $checkCode = StringService::checkMacValueGenerator($serverPost);
+        if ($checkMacValue == $checkCode) {
+            return '1|OK';
+        } else {
+            return '0|FAIL';
+        }
+    }
+    public function returnUrl(Request $request){
+        $serverPost = $request->post();
+        $checkMacValue = $request->post('CheckMacValue');
+        unset($serverPost['CheckMacValue']);
+        $checkCode = StringService::checkMacValueGenerator($serverPost);
+        if ($checkMacValue == $checkCode) {
+            if (!empty($request->input('redirect'))) {
+                return redirect($request->input('redirect'));
+            } else {
+
+                //付款完成，下面接下來要將購物車訂單狀態改為已付款
+                //目前是顯示所有資料將其DD出來
+                // dd($this->checkoutResponse->collectResponse($serverPost));
+
+                $order_no = $serverPost["MerchantTradeNo"];
+                $order = Order::where('order_no', $order_no)->first();
+                $order->payment_status = "已完成";
+                $order->save();
+                //return redirect("/checkoutend/{$order_no}");
+            }
         }
     }
 

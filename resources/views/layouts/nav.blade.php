@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="{{asset('assets/images/logo2.png')}}" type="image/x-icon">
     <meta name="description" content="">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -73,6 +73,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link link text-white display-4" href="/cart">
+                            <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
+                            <?php
+                                $cartCollection = Cart::getContent();
+                                $count = $cartCollection->count();
+                            ?>
+                            cart({{$count}})
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link link text-white display-4" href="/contact_us">
                             <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                             Contact Us
@@ -91,7 +101,7 @@
 
 
 
-@yield('content')
+    @yield('content')
 
 
     <section class="cid-qTkAaeaxX5" id="footer1-2">

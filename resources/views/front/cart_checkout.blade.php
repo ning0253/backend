@@ -8,14 +8,32 @@
         margin: 0;
     }
 
-    .Cart {
+    .shipping_time {
+        padding: 10px 10px;
+        width: 160px;
+        min-height: 58px;
+        height: 100%;
+        font-size: 16px;
+        line-height: 36px;
+        color: #757575;
+        text-align: center;
+        border: 1px solid #eee;
+        background-color: #fff;
+    }
+
+    .shipping_time.active {
+        border: solid 1px red;
+    }
+
+    .Cart,
+    .form-group {
         max-width: 800px;
         margin: 50px auto;
     }
 
     .Cart__header {
         display: grid;
-        grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 3fr 1fr 1fr 1fr;
         grid-gap: 2px;
         margin-bottom: 2px;
     }
@@ -27,7 +45,7 @@
 
     .Cart__product {
         display: grid;
-        grid-template-columns: 2fr 7fr 3fr 3fr 3fr 3fr;
+        grid-template-columns: 2fr 7fr 3fr 3fr 3fr;
         grid-gap: 2px;
         margin-bottom: 2px;
         height: 90px;
@@ -66,10 +84,10 @@
             box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.5);
             margin-bottom: 10px;
             grid-template-rows: 1fr 1fr;
-            grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
+            grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
             grid-template-areas:
-                "img title title title title title del"
-                "img price price quantity total total del";
+                "img title title title title title"
+                "img price price quantity total total";
         }
 
         .Cart__productImg {
@@ -134,15 +152,19 @@
             <div class="Cart__productGrid Cart__productTotal">{{$item->price * $item->quantity}}</div>
         </div>
         @endforeach
-        總計：${{\Cart::getTotal()}}<br>
-        運費：@if(\Cart::getTotal() > 1200)免運費<br>合計：${{\Cart::getTotal()}} @else$120<br>合計：${{\Cart::getTotal()+120}}
-        @endif
+        <div class="text-right">
+            總計：${{\Cart::getTotal()}}<br>
+            運費：@if(\Cart::getTotal() > 1200)免運費
+            <hr>合計：${{\Cart::getTotal()}} @else$120
+            <hr>合計：${{\Cart::getTotal()+120}}
+            @endif
+        </div>
     </div>
     <form action="/cart_checkout" method="post">
         @csrf
         <div class="form-group row">
             <label for="recipient_name" class="col-sm-2 col-form-label">
-                Recipient Name
+                收件人姓名
             </label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="recipient_name" name="recipient_name">
@@ -150,7 +172,7 @@
         </div>
         <div class="form-group row">
             <label for="recipient_phone" class="col-sm-2 col-form-label">
-                Recipient Phone
+                收件人電話
             </label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="recipient_phone" name="recipient_phone">
@@ -158,21 +180,43 @@
         </div>
         <div class="form-group row">
             <label for="recipient_address" class="col-sm-2 col-form-label">
-                Recipient Address
+                收件人地址
             </label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="recipient_address" name="recipient_address">
             </div>
         </div>
         <div class="form-group row">
-            <label for="shipping_time" class="col-sm-2 col-form-label">
-                Shipping Time
+            <label class="col-sm-2 col-form-label">
+                送貨時間
             </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="shipping_time" name="shipping_time">
+                <div class="row">
+                    <div class="col-sm-4 text-center">
+                        <div class="shipping_time active">不指定</div>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <div class="shipping_time">08:00 - 12:00</div>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <div class="shipping_time">12:00 - 18:00</div>
+                    </div>
+                    <input type="text" name="shipping_time" id="shipping_time" hidden>
+                </div>
             </div>
         </div>
-        <button class="btn btn-primary">前往付款</button>
+        <div class="text-center"><button class="btn btn-primary">前往付款</button></div>
     </form>
 </div>
+@endsection
+
+@section('js')
+<script>
+    $('#shipping_time').val($('.shipping_time.active').text());
+    $('.shipping_time').click(function(){
+        $('.shipping_time').removeClass('active');
+        $(this).addClass('active');
+        $('#shipping_time').val($(this).text());
+    })
+</script>
 @endsection
